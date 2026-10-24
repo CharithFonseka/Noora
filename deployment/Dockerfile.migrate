@@ -1,0 +1,12 @@
+FROM node:24-alpine
+WORKDIR /app
+RUN apk add --no-cache openssl
+COPY package.json package-lock.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY apps/storefront/package.json apps/storefront/package.json
+COPY packages/database/package.json packages/database/package.json
+RUN npm ci
+COPY packages/database/prisma packages/database/prisma
+COPY packages/database/prisma.config.ts packages/database/prisma.config.ts
+COPY packages/database/src packages/database/src
+CMD ["npm", "run", "db:migrate:deploy"]
