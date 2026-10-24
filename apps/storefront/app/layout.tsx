@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NOORA | Clothing for every day",
-  description: "NOORA clothing, thoughtfully chosen for you.",
+  title: "NOORA — A softer kind of everyday",
+  description: "Thoughtful, wearable clothing for women, men and children. Discover NOORA online in Sri Lanka.",
 };
 
 export default function RootLayout({
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><SiteHeader />{children}</body>
     </html>
   );
 }
