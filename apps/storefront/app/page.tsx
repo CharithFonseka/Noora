@@ -1,34 +1,17 @@
-export default function HomePage() {
-  return (
-    <main>
-      <header className="site-header">
-        <a className="wordmark" href="/" aria-label="NOORA home">NOORA</a>
-        <nav aria-label="Main navigation">
-          <a href="#women">Women</a>
-          <a href="#men">Men</a>
-          <a href="#children">Children</a>
-        </nav>
-        <a className="bag-link" href="#shopping">Shopping bag <span aria-label="0 items">(0)</span></a>
-      </header>
-      <section className="hero" aria-labelledby="hero-title">
-        <p className="eyebrow">A new way to wear your everyday</p>
-        <h1 id="hero-title">Made for the moments that matter.</h1>
-        <p className="hero-copy">Discover considered pieces for you and everyone you love.</p>
-        <a className="primary-link" href="#collections">Explore the collection</a>
-      </section>
-      <section className="collections" id="collections" aria-labelledby="collection-title">
-        <div>
-          <p className="eyebrow">Welcome to NOORA</p>
-          <h2 id="collection-title">Find your everyday favourites</h2>
-          <p>The store is being prepared. Product collections and shopping features will appear here as they are built.</p>
-        </div>
-        <p className="collection-note">Clothing for women, men, and children</p>
-      </section>
-      <footer>
-        <span>NOORA</span>
-        <span>Sri Lanka · Prices shown in LKR</span>
-      </footer>
-    </main>
-  );
-}
+import Link from "next/link";
 
+export default function HomePage() {
+  return <main>
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-art" aria-hidden="true"><div className="hero-sun"/><div className="hero-cloth cloth-one"/><div className="hero-cloth cloth-two"/><span className="art-caption">NO. 01 &nbsp; THE EVERYDAY EDIT</span></div>
+      <div className="hero-content"><p className="eyebrow">Made to feel like you</p><h1 id="hero-title">A softer kind<br/>of <em>everyday.</em></h1><p>Easy pieces. Beautiful details. Clothing to live in, and love for a long time.</p><Link className="button button-dark" href="/shop">Discover the collection <span>↗</span></Link><div className="hero-note"><span className="note-line"/> Designed in Sri Lanka <span>·</span> Made for real life</div></div>
+      <div className="hero-index">01 <span>/</span> 03</div>
+    </section>
+    <section className="brand-strip"><span>FIND YOUR OWN RHYTHM</span><span>◦</span><span>COMFORT, CONSIDERED</span><span>◦</span><span>MADE FOR EVERY DAY</span></section>
+    <section className="home-intro"><div><p className="eyebrow">The NOORA point of view</p><h2>Good clothes make<br/>room for <em>good days.</em></h2></div><div className="intro-copy"><p>We believe getting dressed should feel simple. Discover thoughtful favourites across women’s, men’s and children’s collections, chosen for the moments that make up a life.</p><Link className="text-link" href="/shop">Shop all clothing <span>→</span></Link></div></section>
+    <section className="category-band"><Link className="category-tile category-women" href="/shop?category=women"><span>01 / WOMEN</span><strong>Her everyday,<br/><em>her way.</em></strong><b>Explore women <i>↗</i></b><div className="tile-shape shape-women"/></Link><Link className="category-tile category-men" href="/shop?category=men"><span>02 / MEN</span><strong>Easy by<br/><em>nature.</em></strong><b>Explore men <i>↗</i></b><div className="tile-shape shape-men"/></Link><Link className="category-tile category-kids" href="/shop?category=children"><span>03 / CHILDREN</span><strong>Little things,<br/><em>big days.</em></strong><b>Explore children <i>↗</i></b><div className="tile-shape shape-kids"/></Link></section>
+    <section className="promise-section"><div className="promise-label"><p className="eyebrow">A little more NOORA</p><h2>Thoughtful in<br/>every <em>thread.</em></h2></div><div className="promise-grid"><article><span>01</span><h3>Easy to wear</h3><p>Comfort comes first, with details that make each piece feel special.</p></article><article><span>02</span><h3>Made to mix</h3><p>Find pieces that work hard in your wardrobe and go further together.</p></article><article><span>03</span><h3>Here in Sri Lanka</h3><p>Thoughtfully chosen for the way we live, move and make the most of a day.</p></article></div></section>
+    <section className="closing-cta"><p className="eyebrow">Your next favourite is waiting</p><h2>Let’s get dressed<br/><em>for the good stuff.</em></h2><Link className="button button-light" href="/shop">Shop NOORA <span>↗</span></Link><span className="closing-flower" aria-hidden="true">✳</span></section>
+    <footer className="site-footer"><div className="footer-main"><Link className="wordmark" href="/">NOORA<span className="wordmark-dot">.</span></Link><p>Clothing for the life you’re living.</p><div className="footer-links"><div><b>Explore</b><Link href="/shop">Shop all</Link><Link href="/shop?category=women">Women</Link><Link href="/shop?category=men">Men</Link><Link href="/shop?category=children">Children</Link></div><div><b>Help</b><Link href="/account">Your account</Link><Link href="/orders">Your orders</Link><Link href="/cart">Shopping bag</Link></div></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} NOORA. All rights reserved.</span><span>Sri Lanka · LKR</span><span>Thoughtfully, always.</span></div></footer>
+  </main>;
+}
