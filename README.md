@@ -73,7 +73,7 @@ Staff with MFA: `GET /api/admin/orders`, `PATCH /api/admin/orders/:id/status`, `
 
 ## Branch and release flow
 
-Each capability has a named `feature/*` branch. Open and merge its pull request into `main` in dependency order: `feature/database-foundation` → `feature/commerce-api` → `feature/storefront` → `feature/staff-mfa` → `feature/deployment`. The build workflow validates the Prisma schema and builds all workspaces for pull requests targeting `main` or `staging`.
+Each capability has a named `feature/*` branch. Open and merge its pull request into `main` in dependency order: `feature/database-foundation` → `feature/commerce-api` → `feature/storefront` → `feature/staff-mfa` → `feature/deployment`. Before merging, run `npm ci`, `npm run db:validate`, and `npm run build`. A GitHub Actions workflow is not installed yet because the GitHub token used for pushing this branch cannot write workflow files; add the build workflow after granting the token the `workflow` scope.
 
 After the reviewed features reach `main`, create `staging` from that commit. Merge release candidates from `main` into `staging` for stakeholder review, then promote the approved release from `staging` to `main` according to the team’s release decision. Keep production deploys attached to `main` and staging deploys attached to `staging`.
 
@@ -90,4 +90,4 @@ npm run db:validate
 npm run build
 ```
 
-`npm run build` generates Prisma Client and builds the database package, API and storefront. CI runs these build checks; there is not yet a business-approved automated test suite.
+`npm run build` generates Prisma Client and builds the database package, API and storefront. There is not yet an automated CI workflow or a business-approved automated test suite.

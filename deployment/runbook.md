@@ -29,7 +29,7 @@ The checked-in specs default to the Singapore region, suitable as a starting poi
 6. Run the migration job against production, then provision the initial admin and MFA as in staging. Check health, browse approved products, place a controlled COD order, verify order/stock state and cancel it to verify stock restoration before launch.
 7. Confirm production backups and restoration steps, custom domain/TLS, alert delivery, staff MFA, product images, privacy/returns/tax content, and a named operator for order fulfillment.
 
-The production app spec targets the `main` branch and enables deploy-on-push. Keep `main` protected with reviewed pull requests and a successful build workflow. Do not point production at a feature branch.
+The production app spec targets the `main` branch and enables deploy-on-push. Keep `main` protected with reviewed pull requests. Add a required build check after the repository’s GitHub token has workflow-write permission. Do not point production at a feature branch.
 
 ## Environment values
 
