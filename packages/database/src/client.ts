@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "../generated/prisma/client.js";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 

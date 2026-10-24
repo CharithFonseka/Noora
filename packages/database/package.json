@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "exports": { "./client": { "types": "./dist/src/client.d.ts", "import": "./dist/src/client.js" } },
-  "exports": { "./client": "./src/client.ts" },
   "scripts": {
     "generate": "prisma generate",
     "build": "tsc -p tsconfig.json",
