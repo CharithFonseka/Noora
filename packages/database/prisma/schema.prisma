@@ -51,6 +51,8 @@ model User {
   phone        String?   @db.VarChar(32)
   role         UserRole  @default(CUSTOMER)
   active       Boolean   @default(true)
+  mfaEnabled   Boolean   @default(false)
+  mfaSecretEncrypted String? @db.VarChar(256)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   sessions     Session[]
