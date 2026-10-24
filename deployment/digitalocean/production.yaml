@@ -1,0 +1,123 @@
+name: noora-store
+region: sgp
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
+databases:
+  - name: noora-mysql
+    engine: MYSQL
+    version: "8.4"
+    production: true
+    cluster_name: noora-production-mysql
+    db_name: noora
+    db_user: noora_app
+services:
+  - name: api
+    github:
+      repo: CharithFonseka/Noora
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    dockerfile_path: Dockerfile.api
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    health_check:
+      http_path: /ready
+      port: 8080
+      initial_delay_seconds: 15
+      period_seconds: 15
+      timeout_seconds: 5
+      failure_threshold: 5
+    envs:
+      - key: NODE_ENV
+        value: production
+        scope: RUN_TIME
+        type: GENERAL
+      - key: PORT
+        value: "8080"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: WEB_ORIGIN
+        value: ${APP_URL}
+        scope: RUN_TIME
+        type: GENERAL
+      - key: DATABASE_URL
+        value: ${noora-mysql.DATABASE_URL}
+        scope: RUN_TIME
+        type: GENERAL
+      - key: DATABASE_SSL
+        value: "true"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: DATABASE_CONNECTION_LIMIT
+        value: "5"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: SESSION_TTL_DAYS
+        value: "14"
+        scope: RUN_TIME
+        type: GENERAL
+  - name: storefront
+    github:
+      repo: CharithFonseka/Noora
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    dockerfile_path: Dockerfile.web
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    health_check:
+      http_path: /
+      port: 8080
+      initial_delay_seconds: 15
+      period_seconds: 15
+      timeout_seconds: 5
+      failure_threshold: 5
+    envs:
+      - key: NODE_ENV
+        value: production
+        scope: RUN_TIME
+        type: GENERAL
+      - key: PORT
+        value: "8080"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: NEXT_PUBLIC_API_URL
+        value: ${APP_URL}
+        scope: RUN_AND_BUILD_TIME
+        type: GENERAL
+jobs:
+  - name: database-migrate
+    kind: PRE_DEPLOY
+    github:
+      repo: CharithFonseka/Noora
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    dockerfile_path: deployment/Dockerfile.migrate
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    envs:
+      - key: DATABASE_URL
+        value: ${noora-mysql.DATABASE_URL}
+        scope: RUN_TIME
+        type: GENERAL
+      - key: DATABASE_SSL
+        value: "true"
+        scope: RUN_TIME
+        type: GENERAL
+ingress:
+  rules:
+    - match:
+        path:
+          prefix: /api
+      component:
+        name: api
+        preserve_path_prefix: true
+    - match:
+        path:
+          prefix: /
+      component:
+        name: storefront
