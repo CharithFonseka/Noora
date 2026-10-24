@@ -29,6 +29,6 @@ app.use((_request, response) => {
 });
 
 app.listen(port, "0.0.0.0", () => {
-  console.log(\`NOORA API listening on port \${port}\`);
+  console.log(`NOORA API listening on port ${port}`);
 });
 
