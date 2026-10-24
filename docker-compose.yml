@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: noora_dev
+      MYSQL_USER: noora
+      MYSQL_PASSWORD: noora_local_password
+      MYSQL_ROOT_PASSWORD: noora_local_root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - noora-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pnoora_local_root_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  noora-mysql-data:
+

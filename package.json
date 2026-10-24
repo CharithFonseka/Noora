@@ -1,0 +1,14 @@
+{
+  "name": "noora",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:web": "npm run dev --workspace @noora/storefront",
+    "dev:api": "npm run dev --workspace @noora/api",
+    "build": "npm run build --workspace @noora/api && npm run build --workspace @noora/storefront",
+    "db:generate": "npm run generate --workspace @noora/database",
+    "db:validate": "npm run validate --workspace @noora/database"
+  },
+  "engines": { "node": ">=24 <25", "npm": ">=10" }
+}
+

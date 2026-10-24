@@ -1,0 +1,19 @@
+{
+  "name": "@noora/database",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "prisma generate",
+    "validate": "prisma validate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.0.0",
+    "@prisma/client": "^7.0.0",
+    "dotenv": "^17.0.0",
+    "mariadb": "^3.4.0"
+  },
+  "devDependencies": { "prisma": "^7.0.0" }
+}
+
