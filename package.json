@@ -10,7 +10,8 @@
     "db:validate": "npm run validate --workspace @noora/database",
     "db:migrate:dev": "npm run migrate:dev --workspace @noora/database",
     "db:migrate:deploy": "npm run migrate:deploy --workspace @noora/database",
-    "admin:create": "npm run db:generate && npm run build --workspace @noora/database && npm run build --workspace @noora/api && npm run admin:create --workspace @noora/api"
+    "admin:create": "npm run db:generate && npm run build --workspace @noora/database && npm run build --workspace @noora/api && npm run admin:create --workspace @noora/api",
+    "vercel:build:api": "npm run db:generate && npm run build --workspace @noora/database && npm run build --workspace @noora/api"
   },
   "engines": { "node": ">=24 <25", "npm": ">=10" }
 }

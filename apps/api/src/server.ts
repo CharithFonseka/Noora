@@ -256,7 +256,13 @@ app.use((error: unknown, _request: Request, response: Response, _next: NextFunct
   if (status >= 500) console.error("Request failed:", error);
   response.status(status).json({ error: { code, message: status >= 500 ? "An unexpected error occurred." : known.message } });
 });
-const server = app.listen(port, "0.0.0.0", () => console.log(`NOORA API listening on port ${port}`));
-const shutdown = () => { server.close(() => { void prisma.$disconnect().finally(() => process.exit(0)); }); };
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
+// Vercel serves the exported Express app as a function. Keep the listener for
+// local development and the existing container deployment.
+export default app;
+
+if (process.env.VERCEL !== "1") {
+  const server = app.listen(port, "0.0.0.0", () => console.log(`NOORA API listening on port ${port}`));
+  const shutdown = () => { server.close(() => { void prisma.$disconnect().finally(() => process.exit(0)); }); };
+  process.on("SIGTERM", shutdown);
+  process.on("SIGINT", shutdown);
+}

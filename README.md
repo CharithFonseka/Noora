@@ -8,7 +8,7 @@ NOORA is a Sri Lankan clothing storefront for women, men and children. This mono
 - **Commerce API:** Express 5, TypeScript, Zod validation
 - **Database:** MySQL 8.4, Prisma ORM 7 with the MariaDB driver adapter
 - **Local development:** Node.js 24 LTS, npm workspaces, Docker Compose
-- **Production target:** DigitalOcean App Platform with a managed MySQL cluster
+- **Production target:** Vercel storefront and API projects with managed MySQL
 
 ## Repository layout
 
@@ -20,6 +20,7 @@ deployment/digitalocean/      Staging and production App Platform specs
 deployment/Dockerfile.migrate Pre-deploy database migration job
 Dockerfile.api                API image
 Dockerfile.web                Storefront image
+deployment/vercel.md          Vercel projects, database, DNS and launch guide
 ```
 
 ## Local setup
@@ -79,7 +80,7 @@ After the reviewed features reach `main`, create `staging` from that commit. Mer
 
 ## Deployment
 
-The DigitalOcean deployment files are in `deployment/digitalocean/`. They define independent staging and production apps, each with separate MySQL data, a pre-deploy migration job, API/storefront containers, same-origin `/api` routing, health checks and deployment/domain failure alerts. See [deployment/runbook.md](deployment/runbook.md) for the account setup and launch steps.
+The production setup uses two Vercel projects from this monorepo: Next.js at `apps/storefront` and the Express function at `apps/api`, with a managed MySQL database. The storefront uses `pathum.gay`; the API uses `api.pathum.gay`. See [deployment/vercel.md](deployment/vercel.md) for project setup, production environment variables, Porkbun DNS, migrations and launch checks. The `deployment/digitalocean/` specs and `deployment/runbook.md` remain as the earlier DigitalOcean alternative.
 
 Before accepting real orders, the business must set delivery charges (and any district-specific rules), decide whether to connect a card gateway, supply production domain/DNS, provide real product content and images, and approve customer-facing privacy, returns and tax rules. Card payments and guest checkout remain unavailable. The current checkout supports authenticated customers using cash on delivery only.
 
